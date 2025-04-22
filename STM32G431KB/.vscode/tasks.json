@@ -1,0 +1,115 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Windows: Flash Firmware",
+			"command": "STM32_Programmer_CLI",
+			"args": [
+				"--connect",
+				"port=swd",
+				"--download",
+				"'${command:cmake.launchTargetPath}'",
+				"-rst",
+				"-run"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "Windows: Reset Device",
+			"command": "STM32_Programmer_CLI",
+			"args": [
+				"--connect",
+				"port=swd",
+				"-rst",
+				"-run"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "Linux: Flash Firmware",
+			"command": "st-flash",
+			"args": [
+				"--reset",
+				"write",
+				"${command:cmake.launchTargetDirectory}/${command:cmake.buildTargetName}.bin",
+				"0x08000000"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "Linux: Reset Device",
+			"command": "st-flash",
+			"args": [
+				"reset"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"all"
+			],
+			"preset": "${command:cmake.activeBuildPresetName}",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake template build task"
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: clean rebuild",
+			"command": "cleanRebuild",
+			"targets": [
+				"all"
+			],
+			"preset": "${command:cmake.activeBuildPresetName}",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake template clean rebuild task"
+		},
+		{
+			"type": "shell",
+			"label": "Build Book",
+			"command": "mdbook",
+			"args": [
+				"build",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+		},
+		{
+			"type": "shell",
+			"label": "Serve Book",
+			"command": "mdbook",
+			"args": [
+				"serve",
+				"--open",
+				"--port",
+				"8500"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+		}
+	]
+}
